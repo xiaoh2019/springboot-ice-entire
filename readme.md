@@ -1,39 +1,44 @@
 服务端没有集成框架，代码部分如下
+~~~~
+``
 public class IceMain {
-    public static void main(String[] args) {
-        // 通信器
-        Communicator ic = null;
-        try {
-            // 初始化这个通信器
-            ic = Util.initialize(args);
-            //创建ice适配器,将服务调用地址和服务映射起来 "HelloServiceAdapter"是适配器名, "default -p 1888"是服务调用的地址
-            ObjectAdapter adapter = ic.createObjectAdapterWithEndpoints("ObjectAdapter","default -p 8899");
+         public static void main(String[] args) {
+             // 通信器
+             Communicator ic = null;
+             try {
+                 // 初始化这个通信器
+                 ic = Util.initialize(args);
+                 //创建ice适配器,将服务调用地址和服务映射起来 "HelloServiceAdapter"是适配器名, "default -p 1888"是服务调用的地址
+                 ObjectAdapter adapter = ic.createObjectAdapterWithEndpoints("ObjectAdapter","default -p 8899");
+     
+                 // 将服务的具体实现类servant交给这个适配器
+                 com.zeroc.Ice.Object servant = new HelloImpl();
+                 // "HelloIce"--服务接口在ice中注册名,转成唯一标识identity
+                 Identity id = Util.stringToIdentity("HelloIce");
+                 adapter.add(servant, id);
+     
+                 //往adapter添加新的服务
+                 PersonServiceImpl personService = new PersonServiceImpl();
+                 //每个服务通过Identity来区分，远程调用需要指定PersonService服务
+                 Identity personServiceId = Util.stringToIdentity("PersonService");
+                 adapter.add(personService, personServiceId);
+                 // 激活这个适配器
+                 adapter.activate();
+                 System.out.println("end");
+                 ic.waitForShutdown();
+             }catch (Exception e){
+                 e.printStackTrace();
+             }finally {
+                 if (ic != null){
+                     ic.destroy();
+                 }
+             }
+             System.exit(1);
+         }
+     }
+``
 
-            // 将服务的具体实现类servant交给这个适配器
-            com.zeroc.Ice.Object servant = new HelloImpl();
-            // "HelloIce"--服务接口在ice中注册名,转成唯一标识identity
-            Identity id = Util.stringToIdentity("HelloIce");
-            adapter.add(servant, id);
 
-            //往adapter添加新的服务
-            PersonServiceImpl personService = new PersonServiceImpl();
-            //每个服务通过Identity来区分，远程调用需要指定PersonService服务
-            Identity personServiceId = Util.stringToIdentity("PersonService");
-            adapter.add(personService, personServiceId);
-            // 激活这个适配器
-            adapter.activate();
-            System.out.println("end");
-            ic.waitForShutdown();
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            if (ic != null){
-                ic.destroy();
-            }
-        }
-        System.exit(1);
-    }
-}
 
 public class PersonServiceImpl implements PersonService {
     private List<Person> personMap = new ArrayList<>();
