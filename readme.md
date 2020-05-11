@@ -1,6 +1,6 @@
 服务端没有集成框架，代码部分如下
 ~~~~
-``
+
 public class IceMain {
          public static void main(String[] args) {
              // 通信器
@@ -36,7 +36,6 @@ public class IceMain {
              System.exit(1);
          }
      }
-``
 
 
 
@@ -97,3 +96,5 @@ public class PersonServiceImpl implements PersonService {
         System.out.println("facet" + current.facet);
     }
 }
+
+~~~~
