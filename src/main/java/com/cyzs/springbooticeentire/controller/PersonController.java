@@ -6,6 +6,7 @@ import com.cyzs.springbooticeentire.icegen.person.PersonServicePrx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @create: 2020-05-26 13:08
  */
 @RestController
+@RequestMapping("/person")
 public class PersonController {
 
     @Autowired
@@ -21,8 +23,7 @@ public class PersonController {
 
     @PostMapping("/addPerson")
     public String addPerson(Person p){
-        PersonServicePrx personServicePrx = iceObject.getPersonServicePrx();
-
+        PersonServicePrx personServicePrx = iceObject.personServicePrx();
         if (personServicePrx != null){
            personServicePrx.addPerson(p);
         }
