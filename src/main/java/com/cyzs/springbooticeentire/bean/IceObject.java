@@ -7,6 +7,7 @@ import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.ObjectAdapter;
 import com.zeroc.Ice.ObjectPrx;
 import com.zeroc.Ice.Util;
+import lombok.Data;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
  * @create: 2020-05-26 14:40
  */
 @Component
+@Data
 public class IceObject implements InitializingBean {
 
     @Autowired
@@ -63,25 +65,14 @@ public class IceObject implements InitializingBean {
         }
     }
 
-    public void personServicePrx(){
-        ObjectPrx proxy = communicator.stringToProxy("PersonService:tcp -h 10.0.0.122 -p 8899");
-        personServicePrx =  PersonServicePrx.checkedCast(proxy);
-    }
-
-    public HelloPrx getHelloPrx() {
-        return helloPrx;
-    }
-
-    public void setHelloPrx(HelloPrx helloPrx) {
-        this.helloPrx = helloPrx;
-    }
-
-    public PersonServicePrx getPersonServicePrx() {
-        return personServicePrx;
-    }
-
-    public void setPersonServicePrx(PersonServicePrx personServicePrx) {
-        this.personServicePrx = personServicePrx;
+    public PersonServicePrx personServicePrx(){
+        if (personServicePrx == null){
+            ObjectPrx proxy = communicator.stringToProxy("PersonService:tcp -h 10.0.0.122 -p 8899");
+            personServicePrx =  PersonServicePrx.checkedCast(proxy);
+            return personServicePrx;
+        }else {
+            return personServicePrx;
+        }
     }
 
     @Override
