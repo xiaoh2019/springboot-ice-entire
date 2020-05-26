@@ -18,7 +18,7 @@
 // </auto-generated>
 //
 
-package com.cyzs.springbooticeentire.icegen;
+package com.cyzs.springbooticeentire.icegen.hello;
 
 public interface Hello extends com.zeroc.Ice.Object
 {

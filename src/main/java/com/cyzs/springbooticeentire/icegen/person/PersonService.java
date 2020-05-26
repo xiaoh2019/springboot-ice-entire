@@ -18,7 +18,7 @@
 // </auto-generated>
 //
 
-package com.cyzs.springbooticeentire.icegen;
+package com.cyzs.springbooticeentire.icegen.person;
 
 public interface PersonService extends com.zeroc.Ice.Object
 {

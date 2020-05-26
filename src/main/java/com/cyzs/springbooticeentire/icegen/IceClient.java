@@ -1,11 +1,12 @@
 package com.cyzs.springbooticeentire.icegen;
 
+import com.cyzs.springbooticeentire.icegen.hello.HelloPrx;
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.ObjectPrx;
 import com.zeroc.Ice.Util;
 
 /**
- * @Description:
+ * @Description: 这是客户端的代码demo
  * @Author xh
  * @create 2020-03-18 14:43
  */

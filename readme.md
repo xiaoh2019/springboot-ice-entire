@@ -1,3 +1,17 @@
+1.作为客户端同过这两个类 HelloPrx  PersonServicePrx去调远程的方法
+
+2.服务端提供服务  UserService
+
+
+
+
+
+
+
+
+
+
+
 服务端没有集成框架，代码部分如下
 ~~~~
 
